@@ -1,0 +1,6 @@
+print()
+name = input("name :-")
+age = input("age :-")
+hobby = input("hobby :-")
+print()
+print("hello,",name,"at",age,"enjoying",hobby,"sounds fun")
