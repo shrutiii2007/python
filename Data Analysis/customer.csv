@@ -1,0 +1,6 @@
+CustomerID,CustomerName,Email,JoinDate,Country
+1,John Doe,john@example.com,2022-01-15,USA
+2,Jane Smith,jane@example.com,2022-03-10,UK
+3,Bob Johnson,bob@example.com,2022-05-20,Canada
+4,Alice Brown,alice@example.com,2022-07-05,Australia
+5,Charlie Davis,charlie@example.com,2022-08-22,USA

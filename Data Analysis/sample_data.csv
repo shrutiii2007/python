@@ -1,0 +1,9 @@
+id,name,gender,age,salary,join_date,exit_date,fare,activities,order_id,customer_type,total_order_value,order_month,product,sales,returns
+1,Alice,Female,25,50000,2022-01-10,2023-01-15,1200,Login;Purchase,ORD101,Regular,3500,January,Laptop,3500,No
+2,Bob,Male,,45000,2022-03-05,2023-02-20,800,Login,ORD102,New,1500,March,Headphones,1500,Yes
+3,Charlie,Male,30,,2022-05-12,,950,Browse;Cart,ORD103,Regular,2200,May,Keyboard,2200,No
+4,David,Male,28,48000,2022-07-01,2023-06-30,1100,Login;Purchase,ORD104,Premium,5400,July,Smartphone,5400,No
+4,David,Male,28,48000,2022-07-01,2023-06-30,1100,Login;Purchase,ORD105,Premium,1800,July,PowerBank,1800,No
+5,Eva,Female,35,,2021-11-20,2022-12-01,700,Browse,ORD106,Regular,900,November,Mouse,900,Yes
+6,Frank,Male,40,52000,2023-01-15,2023-08-01,1500,Login;Purchase;Review,ORD107,Premium,6200,January,Tablet,6200,No
+7,Grace,Female,29,51000,2023-03-10,2023-09-10,1300,Login;Wishlist,ORD108,New,2600,March,Smartwatch,2600,No

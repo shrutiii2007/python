@@ -1,0 +1,11 @@
+OrderID,CustomerID,OrderDate,TotalOrderValue,Product
+101,1,2023-01-05,250,Smartphone
+102,2,2023-01-15,150,Laptop
+103,3,2023-02-20,300,Tablet
+104,1,2023-03-10,500,Desktop PC
+105,4,2023-03-25,200,Headphones
+106,5,2023-04-12,450,Smartwatch
+107,2,2023-04-18,120,Keyboard
+108,3,2023-05-05,700,Monitor
+109,5,2023-05-20,350,Camera
+110,1,2023-06-08,600,Printer
