@@ -1,0 +1,6 @@
+help("shruti")
+
+# output :-
+# No Python documentation found for 'shruti'.
+# Use help() to get the interactive help utility.
+# Use help(str) for help on the str class.
