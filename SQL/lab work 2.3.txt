@@ -1,0 +1,140 @@
+----------------------------------------------
+QUESTION :- 1
+----------------------------------------------
+
+CREATE TABLE employees (
+emp_id INT PRIMARY KEY,
+emp_name VARCHAR(50),
+position VARCHAR(50),
+salary DECIMAL(10,2)
+);
+
+------(1)
+INSERT INTO employees(emp_id,emp_name,position,salary)
+VALUES
+(1, 'Rahul', 'Manager', 50000),
+(2, 'Anita', 'Developer', 40000),
+(3, 'Suresh', 'Tester', 30000),
+(4, 'Pooja', 'HR', 35000),
+(5, 'Amit', 'Clerk', 25000);
+
+------(2)
+INSERT INTO employees(emp_id,emp_name,position,salary)
+VALUES (1, 'Kiran', 'Intern', 15000);
+
+ERROR COME:-
+Duplicate entry '1' for key 'PRIMARY'
+
+----------------------------------------------
+QUESTION :- 2
+----------------------------------------------
+
+CREATE TABLE departments (
+dept_id INT,
+dept_name VARCHAR(50)
+);
+
+------(1)
+ALTER TABLE departments
+ADD PRIMARY KEY (dept_id);
+
+----------------------------------------------
+QUESTION :- 3
+----------------------------------------------
+
+CREATE TABLE project_assignments(
+    emp_id INT,
+    project_id INT,
+    assigned_date DATE,
+    PRIMARY KEY (emp_id, project_id)
+);
+
+------(1)
+INSERT INTO project_assignments(emp_id,project_id,assigned_date)
+VALUES
+(1, 101, '2024-01-01'),
+(2, 101, '2024-01-05'),
+(1, 102, '2024-02-01');
+
+----------------------------------------------
+QUESTION :- 4
+----------------------------------------------
+
+CREATE TABLE student_enrollments(
+    student_id INT,
+    course_id INT,
+    enrollment_date DATE,
+    PRIMARY KEY (student_id,course_id)
+);
+
+------(1)
+INSERT INTO student_enrollments(student_id,course_id,enrollment_date)
+VALUES
+(1, 201, '2024-06-01'),
+(2, 201, '2024-06-02'),
+(1, 202, '2024-06-03');
+
+------(2)
+INSERT INTO student_enrollments(student_id,course_id,enrollment_date)
+VALUES
+(1, 201, '2024-06-10');
+
+ERROR COMES:-
+Duplicate entry '1-201' for key 'PRIMARY'
+
+----------------------------------------------
+QUESTION :- 5
+----------------------------------------------
+
+CREATE TABLE departments_new (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+
+INSERT INTO departments_new (dept_id, dept_name)
+VALUES
+(1, 'Sales'),
+(2, 'Engineering');
+
+CREATE TABLE employees_new (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES departments (dept_id)
+);
+
+INSERT INTO employees_new (emp_id, emp_name, dept_id) 
+VALUES
+(101, 'Alice', 1),
+(102, 'Bob', 2),
+(103, 'Charlie', 2),
+(104, 'David', 3),
+(105, 'Eve', 1);
+
+---------------------------------------------
+QUESTION :- 6
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

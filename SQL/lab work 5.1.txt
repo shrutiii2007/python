@@ -1,0 +1,612 @@
+------------------------------------------------
+QUESTION :- 1
+------------------------------------------------
+
+CREATE TABLE Sales (
+    Sale_ID INT PRIMARY KEY,
+    Product_ID INT,
+    Employee_ID INT,
+    Sale_Date DATE,
+    Quantity INT,
+    Total_Amount DECIMAL(10, 2)
+);
+
+INSERT INTO Sales (Sale_ID, Product_ID, Employee_ID, Sale_Date, Quantity, Total_Amount)
+VALUES
+(1, 101, 501, '2025-01-15', 2, 150.00),
+(2, 102, 502, '2025-01-16', 1, 75.50),
+(3, 101, 503, '2025-01-16', 5, 375.00),
+(4, 103, 501, '2025-01-17', 3, 45.00),
+(5, 102, 504, '2025-01-18', 2, 151.00);
+
+SELECT 
+    YEAR(Sale_Date) AS year_value, 
+    MONTH(Sale_Date) AS month_value, 
+    DAY(Sale_Date) AS day_value
+FROM sales;
+
+------------------------------------------------
+QUESTION :- 2
+------------------------------------------------
+
+CREATE TABLE logs_table(
+    log_id INT,
+    log_time  DATETIME
+);
+
+INSERT INTO logs_table(log_id,log_time)
+VALUES
+(1,'2024-02-01 10:30:45'),
+(2,'2024-02-01 18:15:20');
+
+SELECT 
+HOUR(log_time) AS hour,
+MINUTE(log_time) AS minute
+FROM logs_table;
+
+
+------------------------------------------------
+QUESTION :- 3
+------------------------------------------------
+
+CREATE TABLE orders(
+    order_id INT,
+    order_date DATE,
+    delivery_date DATE,
+    amount INT
+);
+
+INSERT INTO orders(order_id,order_date,delivery_date,amount)
+VALUES
+(1,'2024-01-10','2024-01-15',25000),
+(2,'2023-11-20','2023-11-25',35500);
+
+SELECT
+DATE_FORMAT(order_date,'%d-%m-%Y')
+AS formatted_date
+FROM orders;
+
+------------------------------------------------
+QUESTION :- 4
+------------------------------------------------
+
+CREATE TABLE attendance(
+    att_id INT,
+    check_in DATETIME
+);
+
+INSERT INTO attendance(att_id,check_in)
+VALUES
+(1,'2024-02-01 09:00:00'),
+(2,'2024-02-02 09:15:00');
+
+SELECT DATE(check_in) 
+AS only_date
+FROM attendance;
+
+------------------------------------------------
+QUESTION :- 5
+------------------------------------------------
+
+CREATE TABLE orders_1(
+    order_id INT,
+    order_date DATE,
+    delivery_date DATE,
+    amount INT
+);
+
+INSERT INTO orders_1(order_id,order_date,delivery_date,amount)
+VALUES
+(1,'2025-01-10','2024-01-15',25000),
+(2,'2025-02-07','2023-11-25',35500),
+(3,'2025-01-11','2023-12-12',98000);
+
+SELECT *
+FROM orders
+WHERE DAYOFWEEK(order_date) 
+IN (1, 7); 
+
+------------------------------------------------
+QUESTION :- 6
+------------------------------------------------
+
+SELECT order_id,
+DATEDIFF(delivery_date, order_date)
+AS days_difference
+FROM orders;
+
+------------------------------------------------
+QUESTION :- 7
+------------------------------------------------
+
+CREATE TABLE employees (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    join_date DATE
+);
+
+INSERT INTO employees
+VALUES
+(1, 'Ravi', '2024-02-01'),
+(2, 'Neha', '2026-01-01'),
+(3, 'Amit', '2023-12-01');
+
+
+SELECT COUNT(*) AS total_employees
+FROM employees
+WHERE join_date >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH);
+
+
+------------------------------------------------
+QUESTION :- 8
+------------------------------------------------
+
+CREATE TABLE customers (
+    customer_id INT,
+    customer_name VARCHAR(50)
+);
+
+INSERT INTO customers(customer_id,customer_name)
+VALUES
+(1, 'Asha'),
+(2, 'Kiran'),
+(3, 'Rahul');
+
+CREATE TABLE purchases (
+    purchase_id INT,
+    customer_id INT,
+    purchase_date DATE
+);
+
+INSERT INTO purchases (purchase_id,customer_id,purchase_date)
+VALUES
+(1, 1, '2023-01-10'),          
+(2, 2, CURDATE());         
+
+
+SELECT *
+FROM customers
+WHERE customer_id NOT IN (
+    SELECT customer_id
+    FROM purchases
+    WHERE purchase_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+);
+
+------------------------------------------------
+QUESTION :- 9
+------------------------------------------------
+
+CREATE TABLE events (
+    event_id INT,
+    event_date DATE
+);
+
+INSERT INTO events(event_id,event_date)
+VALUES 
+(1, '2026-02-25'),
+(2, '2024-04-01');
+
+SELECT *
+FROM events
+WHERE event_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY);
+
+------------------------------------------------
+QUESTION :- 10
+------------------------------------------------
+
+SELECT SUM(amount) AS total_revenue
+FROM orders_1
+WHERE order_date BETWEEN '2024-12-01' AND '2025-02-28';
+
+------------------------------------------------
+QUESTION :- 11
+------------------------------------------------
+
+CREATE TABLE logins (
+    user_id INT,
+    login_time DATETIME
+);
+
+INSERT INTO logins(user_id,login_time)
+VALUES
+(1,'2025-02-01 10:15:00'),
+(2,'2025-02-01 10:45:00'),
+(3,'2025-02-01 18:20:00'),
+(4,'2025-02-01 10:05:00');
+
+SELECT HOUR(login_time) AS hour, COUNT(*) AS total_logins
+FROM logins
+GROUP BY hour
+ORDER BY total_logins DESC
+LIMIT 1;
+
+------------------------------------------------
+QUESTION :- 12
+------------------------------------------------
+
+CREATE TABLE sales_1 (
+    sale_id INT,
+    sale_date DATE,
+    amount INT
+);
+
+INSERT INTO sales_1(sale_id,sale_date,amount)
+VALUES
+(1,'2025-02-05',20000),
+(2,'2025-01-15',15000),
+(3,'2025-02-10',30000),
+(4,'2025-01-20',10000);
+
+SELECT
+    MONTH(sale_date) AS month,
+    SUM(amount) AS total_sales
+FROM sales_1
+WHERE sale_date BETWEEN '2025-01-01' AND '2025-02-28'
+GROUP BY month;
+
+------------------------------------------------
+QUESTION :- 13
+------------------------------------------------
+
+CREATE TABLE transactions (
+    trans_id INT,
+    trans_date DATE,
+    amount INT
+);
+
+INSERT INTO transactions(trans_id,trans_date,amount)
+VALUES
+(1,'2025-01-05',5000),
+(2,'2025-01-20',15000),
+(3,'2025-02-10',8000),
+(4,'2025-02-18',22000);
+
+SELECT
+    MONTH(trans_date) AS month,
+    MAX(amount) OVER (PARTITION BY MONTH(trans_date)) AS highest_amount,
+    MIN(amount) OVER (PARTITION BY MONTH(trans_date)) AS lowest_amount
+FROM transactions;
+
+------------------------------------------------
+QUESTION :- 14
+------------------------------------------------
+
+CREATE TABLE orders_2 (
+    order_id INT,
+    order_date DATE,
+    delivery_date DATE
+);
+
+INSERT INTO orders_2(order_id,order_date,delivery_date)
+VALUES
+(1,'2025-01-01','2025-01-05'),
+(2,'2025-01-10','2025-01-15'),
+(3,'2025-01-20','2025-01-25');
+
+SELECT AVG(DATEDIFF(delivery_date, order_date)) AS avg_delivery_days
+FROM orders_2;
+
+------------------------------------------------
+QUESTION :- 15
+------------------------------------------------
+
+CREATE TABLE purchases_1 (
+    customer_id INT,
+    purchase_date DATE
+);
+
+INSERT INTO purchases_1 VALUES
+(1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR)),
+(1,'2025-02-10'),
+(2,'2024-05-05');
+
+
+SELECT customer_id
+FROM purchases_1
+GROUP BY customer_id
+HAVING MIN(purchase_date) = DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+
+------------------------------------------------
+QUESTION :- 16
+------------------------------------------------
+
+CREATE TABLE customer_1(
+    customer_id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50)
+);
+
+INSERT INTO customer_1(customer_id,first_name,last_name)
+VALUES
+(101,'alex','john'),
+(102,'alex','sans'),
+(103,'jack','sheriff');
+
+SELECT CONCAT(first_name, ' ', last_name) AS full_name
+FROM customer_1;
+
+------------------------------------------------
+QUESTION :- 17
+------------------------------------------------
+
+CREATE TABLE products(
+    product_id INT,
+    product_code VARCHAR(50),
+    product_price DECIMAL(10,2)
+);
+
+INSERT INTO products(product_id,product_code,product_price)
+VALUES
+(101,'headphones',5500),
+(102,'laptop',67000),
+(103,'mouse',350);
+
+SELECT LEFT(product_code, 3) AS first_three_chars
+FROM products;
+
+------------------------------------------------
+QUESTION :- 18
+------------------------------------------------
+
+CREATE TABLE city(
+    city_code INT,
+    city_name VARCHAR(100)
+);
+
+INSERT INTO city(city_code,city_name)
+VALUES
+(1122,'indore'),
+(3354,'amritsar'),
+(2310,'surat'),
+(2412,'bhopal');
+
+SELECT 
+    city_code, 
+    city_name, 
+    UPPER(city_name) AS uppercase_city_name
+FROM city;
+
+------------------------------------------------
+QUESTION :- 19
+------------------------------------------------
+
+CREATE TABLE users(
+    user_id INT,
+    user_name VARCHAR(50)
+);
+
+INSERT INTO users(user_id,user_name)
+VALUES
+(1,'    ___shrutiii87'),
+(2,'kiara23__98     '),
+(3,'kaizzz45        ');
+
+SELECT 
+    user_id, 
+    user_name, 
+    TRIM(user_name) AS cleaned_user_name
+FROM users;
+
+------------------------------------------------
+QUESTION :- 20
+------------------------------------------------
+
+CREATE TABLE companies (
+    company_id INT PRIMARY KEY,
+    company_name VARCHAR(100)
+);
+
+INSERT INTO companies (company_id, company_name) VALUES
+(1, 'TechCorp Inc.'),
+(2, 'Innovate Inc.'),
+(3, 'Global Solutions Ltd.');
+
+SELECT 
+    company_id, 
+    company_name, 
+    REPLACE(company_name, 'Inc.', 'LLC.') AS updated_company_name
+FROM companies;
+
+------------------------------------------------
+QUESTION :- 21
+------------------------------------------------
+
+CREATE TABLE employees_1(
+    email VARCHAR(50)
+);
+
+INSERT INTO employees_1(email)
+VALUES
+('shrutii87@gmail.com'),
+('education.org'),
+('goverment.org'),
+('alex78@gmail.com');
+
+SELECT email
+FROM employees_1
+WHERE email LIKE '%.org%';
+
+------------------------------------------------
+QUESTION :- 22
+------------------------------------------------
+
+CREATE TABLE contacts (
+    contact_id INT,
+    phone_number VARCHAR(20)
+);
+
+INSERT INTO contacts VALUES
+(1, '(123)-456-7890'),
+(2, '987.654.3210'),
+(3, '+91-98765 43210');
+
+SELECT 
+    contact_id,
+    REGEXP_REPLACE(phone_number, '[^0-9]', '') AS cleaned_phone
+FROM contacts;
+
+------------------------------------------------
+QUESTION :- 23
+------------------------------------------------
+
+CREATE TABLE products_1 (
+    product_id INT,
+    product_code VARCHAR(10)
+);
+
+INSERT INTO products_1(product_id,product_code)
+VALUES
+(1, '123'),
+(2, '45678'),
+(3, '98765432');
+
+SELECT 
+    product_id,
+    LPAD(product_code, 8, '0') AS standardized_code
+FROM products_1;
+
+------------------------------------------------
+QUESTION :- 24
+------------------------------------------------
+
+CREATE TABLE users_1 (
+    user_id INT,
+    email VARCHAR(100)
+);
+
+INSERT INTO users_1(user_id,email)
+VALUES
+(1, 'john@gmail.com'),
+(2, 'shruti@yahoo.com'),
+(3, 'admin@company.org');
+
+SELECT 
+    user_id,
+    SUBSTRING_INDEX(email, '@', -1) AS domain
+FROM users_1;
+
+------------------------------------------------
+QUESTION :- 25
+------------------------------------------------
+
+CREATE TABLE categories (
+    category_id INT,
+    category_name VARCHAR(50)
+);
+
+INSERT INTO categories VALUES
+(1, 'electronics'),
+(2, 'FURNITURE'),
+(3, 'cloTHing');
+
+SELECT 
+    category_id,
+    CONCAT(UPPER(LEFT(category_name,1)),
+           LOWER(SUBSTRING(category_name,2))) AS standardized_category
+FROM categories;
+
+------------------------------------------------
+QUESTION :- 26
+------------------------------------------------
+
+CREATE TABLE products_desc (
+    product_id INT,
+    description VARCHAR(255)
+);
+
+INSERT INTO products_desc VALUES
+(1, 'High quality laptop'),
+(2, 'Wooden dining table set'),
+(3, 'Smart LED TV');
+
+SELECT 
+    product_id,
+    LENGTH(description) - LENGTH(REPLACE(description, ' ', '')) + 1 
+    AS word_count
+FROM products_desc;
+
+------------------------------------------------
+QUESTION :- 27
+------------------------------------------------
+
+CREATE TABLE customers_2 (
+    customer_id INT,
+    customer_name VARCHAR(50)
+);
+
+INSERT INTO customers_2 (customer_id,customer_name)
+VALUES
+(1, 'Alice'),
+(2, 'Arun'),
+(3, 'Bob'),
+(4, 'Ankit'),
+(5, 'Brian');
+
+SELECT first_letter, total_count
+FROM (
+    SELECT 
+        LEFT(customer_name,1) AS first_letter,
+        COUNT(*) AS total_count,
+        RANK() OVER (ORDER BY COUNT(*) DESC) AS rnk
+    FROM customers
+    GROUP BY LEFT(customer_name,1)
+) t
+WHERE rnk = 1;
+
+------------------------------------------------
+QUESTION :- 28
+------------------------------------------------
+
+CREATE TABLE comments (
+    comment_id INT,
+    comment_text VARCHAR(255)
+);
+
+INSERT INTO comments VALUES
+(1, 'This  is   good'),
+(2, 'Very    nice product'),
+(3, 'Excellent   quality');
+
+SELECT 
+    comment_id,
+    REGEXP_REPLACE(comment_text, '\\s+', ' ') AS cleaned_comment
+FROM comments;
+
+------------------------------------------------
+QUESTION :- 29
+------------------------------------------------
+
+CREATE TABLE products_slug (
+    product_id INT,
+    product_name VARCHAR(100)
+);
+
+INSERT INTO products_slug VALUES
+(1, 'Gaming Laptop'),
+(2, 'Wooden Table'),
+(3, 'Smart Phone');
+
+SELECT 
+    product_id,
+    LOWER(REPLACE(product_name, ' ', '-')) AS slug
+FROM products_slug;
+
+------------------------------------------------
+QUESTION :- 30
+------------------------------------------------
+
+CREATE TABLE products_code (
+    product_id INT,
+    product_code VARCHAR(20)
+);
+
+INSERT INTO products_code VALUES
+(1, 'AB123CD'),
+(2, 'X9Y8Z7'),
+(3, 'PQR456');
+
+SELECT 
+    product_id,
+    REGEXP_REPLACE(product_code, '[^0-9]', '') AS numeric_part
+FROM products_code;
+
